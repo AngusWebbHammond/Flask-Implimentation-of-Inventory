@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Inventory</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Brand</th>
+            <th scope="col">IP Rating</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Amperage</th>
+            <th scope="col">Number in Store</th>
+        </tr>
+    </thead>
+    {% for item in items %}
+    <tr>
+        {% for key in item.keys() %}
+        <td scope="row">{{item[key]}}</td>
+        {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

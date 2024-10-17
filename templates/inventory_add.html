@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Input Items into the Inventory</h1>
+<form method="post" class="border border-primary d-xl-inline-flex">
+    <div class="row">
+        <div class="col-3">
+            <select name = "item_info_id" class="form-select">
+                <option selected disabled>Select an item</option>
+
+                {% for item in items %}
+                <option value="{{item['item_info_id']}}">{{item['item']}}</option>
+                {% endfor %}
+
+            </select>
+        </div>
+        <div class="col-3">
+            <input name="store_location" class="form-control" type="Text" placeholder="Location of Store" autocomplete="off">
+        </div>
+        <div class="col-3">
+            <input name="condition" type="Text" class="form-control" placeholder="Current Condition" autocomplete="off">
+        </div>
+        <div class="col">
+            <button type ="submit" class="btn btn-primary">Submit Item Information</button>
+        </div>
+    </div>
+</form>
+<h2>{{out}}</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Brand</th>
+            <th scope="col">IP Rating</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Amperage</th>
+            <th scope="col">Number in Store</th>
+        </tr>
+    </thead>
+    {% for item in items_2 %}
+    <tr>
+        {% for key in item.keys() %}
+        <td scope="row">{{item[key]}}</td>
+        {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Input manufacturers</h1>
+<form method="post">
+    <input name = "brand" type="text" placeholder="Brandname" autocomplete="off">
+    <input name = "email" type="text" placeholder="Email Address" autocomplete="off">
+    <input name = "website" type="text" placeholder="Website" autocomplete="off">
+    <button type ="submit">Submit Brand to Inventory Database</button>
+</form>
+<h2>{{out}}</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Manufacturer</th>
+            <th scope="col">Email Address</th>
+            <th scope="col">Website</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    {% for manu in manufacturers %}
+    <tr>
+        <td scope="row">{{manu[1]}}</td>
+        <td scope="row">{{manu[2]}}</td>
+        <td scope="row"><a href="{{manu[3]}}" target="_blank">{{manu[3]}}</a></td>
+        <td scope="row">
+            <form action="/delete_brand" method="POST">
+                <input name="id" type="hidden" value="{{manu[0]}}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

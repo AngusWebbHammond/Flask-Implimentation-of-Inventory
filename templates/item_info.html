@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Input Item Information</h1>
+<form method="post">
+    <input name = "item" type="text" placeholder="Item Name" autocomplete="off">
+    <input name = "ip_rating" type="text" placeholder="IP Rating" autocomplete="off">
+    <input name = "weight" type="text" placeholder="Weight in kg" autocomplete="off">
+    <input name = "amperage" type="text" placeholder="Amperage in A" autocomplete="off">
+    <input name = "type" type="text" placeholder="Type of item" autocomplete="off">
+    <input name = "replacement_cost" type="text" placeholder="Replacement Cost in £" autocomplete="off">
+    <select name = "brand">
+        <option selected disabled>Select a Brand</option>
+        {% for values in brands %}
+        <option value="{{values['brand_id']}}">{{values['brand']}}</option>
+        {% endfor %}
+    </select>
+    <button type ="submit">Submit Item Information</button>
+</form>
+<h2>{{out}}</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Item</th>
+            <th scope="col">IP Rating</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Amperage</th>
+            <th scope="col">Type</th>
+            <th scope="col">Replacement Cost</th>
+            <th scope="col">Brand</th>
+            <th scope="col">Website</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    {% for item in items %}
+    <tr>
+        {% for key in item.keys() %}
+        {% if key != "item_info_id" and key != "website" %}
+        <td scope="row">{{item[key]}}</td>
+        {% endif %}
+        {% endfor %}
+        <td scope="row">
+            <a href="{{item['website']}}" target="_blank">{{item['website']}}</a>
+        </td>
+        <td scope="row">
+            <form action="/delete_item_info" method="POST">
+                <input name="id" type="hidden" value="{{item['item_info_id']}}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+        <td scope="row">
+            <form action="/update_item_info" method="POST">
+                <input name="website" type="text">
+                <input name="item_info_id" type="hidden" value="{{item['item_info_id']}}">
+                <button type="submit">Update</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
